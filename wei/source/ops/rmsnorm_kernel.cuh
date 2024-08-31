@@ -1,0 +1,6 @@
+#ifndef WEI_INFER_OPS_RMSNORM_KERNEL_HPP
+#define WEI_INFER_OPS_RMSNORM_KERNEL_HPP
+
+#include <torch/torch.h>
+
+#endif // WEI_INFER_OPS_RMSNORM_KERNEL_HPP
