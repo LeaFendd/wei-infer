@@ -50,6 +50,28 @@ class CPUDeviceAllocator : public DeviceAllocator {
     void release(void *ptr) const override;
 };
 
+class CPUDeviceAllocatorFactory {
+  public:
+    static std::shared_ptr<base::DeviceAllocator> getInstance() {
+        return instance_;
+    }
+
+  private:
+    static std::shared_ptr<base::CPUDeviceAllocator> instance_;
+};
+
+class DeviceAllocatorFactory {
+  public:
+    static std::shared_ptr<base::DeviceAllocator>
+    getInstance(DeviceType device_type) {
+        if (device_type == DeviceType::kDeviceCPU) {
+            return CPUDeviceAllocatorFactory::getInstance();
+        } else {
+            return nullptr;
+        }
+    }
+};
+
 } // namespace base
 
 #endif // WEI_INFER_BASE_ALLOC_H_

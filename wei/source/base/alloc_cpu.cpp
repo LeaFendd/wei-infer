@@ -20,4 +20,7 @@ void CPUDeviceAllocator::release(void *ptr) const {
     }
 }
 
+std::shared_ptr<CPUDeviceAllocator> CPUDeviceAllocatorFactory::instance_ =
+    std::make_shared<CPUDeviceAllocator>();
+
 } // namespace base
