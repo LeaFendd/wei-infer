@@ -3,6 +3,20 @@
 
 namespace base {
 
+cudaMemcpyKind _getCudaMemcpyKind(MemcpyKind memcpy_kind) {
+    switch (memcpy_kind) {
+    case MemcpyKind::kMemcpyCPU2CUDA:
+        return cudaMemcpyHostToDevice;
+    case MemcpyKind::kMemcpyCUDA2CPU:
+        return cudaMemcpyDeviceToHost;
+    case MemcpyKind::kMemcpyCUDA2CUDA:
+        return cudaMemcpyDeviceToDevice;
+    default:
+        LOG(FATAL) << "Unknown memcpy kind: " << static_cast<int>(memcpy_kind);
+        return cudaMemcpyDefault;
+    }
+}
+
 cudaError_t _cudaMemcpyWraper(
     const void *src,
     void *dst,
@@ -16,20 +30,6 @@ cudaError_t _cudaMemcpyWraper(
         return cudaMemcpyAsync(dst, src, n, kind, _stream);
     } else {
         return cudaMemcpy(dst, src, n, kind);
-    }
-}
-
-cudaMemcpyKind _getCudaMemcpyKind(MemcpyKind memcpy_kind) {
-    switch (memcpy_kind) {
-    case MemcpyKind::kMemcpyCPU2CUDA:
-        return cudaMemcpyHostToDevice;
-    case MemcpyKind::kMemcpyCUDA2CPU:
-        return cudaMemcpyDeviceToHost;
-    case MemcpyKind::kMemcpyCUDA2CUDA:
-        return cudaMemcpyDeviceToDevice;
-    default:
-        LOG(FATAL) << "Unknown memcpy kind: " << static_cast<int>(memcpy_kind);
-        return cudaMemcpyDefault;
     }
 }
 
@@ -69,7 +69,7 @@ void DeviceAllocator::memcpy(
 void DeviceAllocator::memset_zero(
     void *ptr, size_t byte_size, void *stream, bool need_sync
 ) {
-    CHECK_NE(device_type_, base::DeviceType::kDeviceUnknown);
+    CHECK(device_type_ != base::DeviceType::kDeviceUnknown);
     if (device_type_ == base::DeviceType::kDeviceCPU) {
         std::memset(ptr, 0, byte_size);
     } else {
