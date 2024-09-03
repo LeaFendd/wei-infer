@@ -18,6 +18,11 @@ enum class DataType : uint8_t {
     kDataTypeInt8 = 2,
     kDataTypeInt32 = 3,
 };
+
+#define KB (1024)
+#define MB (1024 * 1024)
+#define GB (1024 * 1024 * 1024)
+
 } // namespace base
 
 #endif // WEI_INFER_BASE_BASE_H_
