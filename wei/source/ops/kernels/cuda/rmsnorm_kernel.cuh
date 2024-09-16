@@ -1,6 +1,12 @@
-#ifndef WEI_INFER_OPS_RMSNORM_KERNEL_HPP
-#define WEI_INFER_OPS_RMSNORM_KERNEL_HPP
-
-#include <torch/torch.h>
-
-#endif // WEI_INFER_OPS_RMSNORM_KERNEL_HPP
+#ifndef RMSNORM_KERNEL_CU_CUH
+#define RMSNORM_KERNEL_CU_CUH
+#include <tensor/tensor.h>
+namespace kernel {
+void rmsnorm_kernel_cu(
+    const tensor::Tensor &input,
+    const tensor::Tensor &weight,
+    const tensor::Tensor &output,
+    void *stream = nullptr
+);
+}
+#endif // RMSNORM_KERNEL_CU_CUH
