@@ -132,6 +132,13 @@ Tensor::Tensor(
     }
 }
 
+template <typename T> void Tensor::set_value(T value) {
+    CHECK_NE(buffer_, nullptr);
+    for (size_t i = 0; i < (buffer_->byte_size_) / sizeof(T); i++) {
+        (T *)buffer_->ptr_ = value;
+    }
+}
+
 void Tensor::to_cuda(cudaStream_t stream) {
     CHECK_NE(buffer_, nullptr);
     const base::DeviceType device_type = this->device_type();

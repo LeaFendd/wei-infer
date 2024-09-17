@@ -60,6 +60,8 @@ class Tensor {
         void *ptr = nullptr
     );
 
+    template <typename T> void set_value(T value);
+
     void to_cpu();
 
     void to_cuda(cudaStream_t stream = nullptr);
