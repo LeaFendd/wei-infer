@@ -71,6 +71,13 @@ MHAKernel get_mha_kernel(base::DeviceType device_type) {
     }
 }
 
+FMHAKernel get_fmha_kernel(base::DeviceType device_type) {
+    if (device_type != base::DeviceType::kDeviceCUDA) {
+        LOG(FATAL) << "Flash Attention kernel only support CUDA.";
+        return nullptr;
+    }
+}
+
 RoPEKernel get_rope_kernel(base::DeviceType device_type) {
     if (device_type == base::DeviceType::kDeviceCPU) {
         return rope_kernel_cpu;

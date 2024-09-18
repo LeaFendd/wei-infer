@@ -59,6 +59,21 @@ typedef void (*MHAKernel)(
     const CudaConfig *config
 );
 
+typedef void (*FMHAKernel)(
+    const int32_t pos,
+    const int32_t head_num,
+    const int32_t layer_index,
+    const int32_t seq_len,
+    const int32_t dim,
+    const int32_t group_size,
+    const int32_t head_size,
+    const tensor::Tensor &query_tensor,
+    const tensor::Tensor &key_cache_tensor,
+    const tensor::Tensor &value_cache_tensor,
+    const CudaConfig *config,
+    tensor::Tensor &mha_out
+);
+
 typedef void (*RMSNormKernel)(
     const tensor::Tensor &input,
     const tensor::Tensor &weight,
@@ -105,6 +120,8 @@ MatmulKernel get_matmul_kernel(base::DeviceType device_type);
 MatmulKernelQuant get_matmul_kernel_quant8(base::DeviceType device_type);
 
 MHAKernel get_mha_kernel(base::DeviceType device_type);
+
+FMHAKernel get_fmha_kernel(base::DeviceType device_type);
 
 RMSNormKernel get_rmsnorm_kernel(base::DeviceType device_type);
 
