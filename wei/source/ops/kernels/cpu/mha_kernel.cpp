@@ -16,16 +16,16 @@ void mha_kernel(
     const tensor::Tensor &key_cache_tensor,
     const tensor::Tensor &value_cache_tensor,
     base::DeviceType device_type,
-    CudaConfig *config
+    const CudaConfig *config
 ) {
     int32_t layer_offset = layer_index * seq_len * kv_dim;
     float scale = 1.f / std::sqrt(static_cast<float>(head_size));
 
     std::shared_ptr<base::DeviceAllocator> allocator;
     if (device_type == base::DeviceType::kDeviceCPU) {
-        allocator = base::CPUDeviceAllocatorFactory::get_instance();
+        allocator = base::CPUDeviceAllocatorFactory::getInstance();
     } else {
-        allocator = base::CUDADeviceAllocatorFactory::get_instance();
+        allocator = base::CUDADeviceAllocatorFactory::getInstance();
     }
     for (int32_t h = 0; h < head_num; ++h) {
         float *score_head_addr =

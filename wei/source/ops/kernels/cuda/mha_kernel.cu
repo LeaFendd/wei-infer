@@ -1,5 +1,5 @@
+#include "base/cuda_config.h"
 #include "mha_kernel.cuh"
-#include <base/cuda_config.h>
 #include <cub/cub.cuh>
 #include <tensor/tensor.h>
 
@@ -124,7 +124,7 @@ void mha_kernel_cu(
     const tensor::Tensor &key_cache_tensor,
     const tensor::Tensor &value_cache_tensor,
     base::DeviceType device_type,
-    CudaConfig *config
+    const CudaConfig *config
 ) {
     UNUSED(device_type);
     int32_t layer_offset = layer_index * seq_len * kv_dim;

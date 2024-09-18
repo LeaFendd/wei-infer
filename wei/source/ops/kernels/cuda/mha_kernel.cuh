@@ -15,7 +15,7 @@ void mha_kernel_cu(
     const tensor::Tensor &key_cache_tensor,
     const tensor::Tensor &value_cache_tensor,
     base::DeviceType device_type,
-    CudaConfig *config
+    const CudaConfig *config
 );
 }
 #endif // MHA_KERNEL_H

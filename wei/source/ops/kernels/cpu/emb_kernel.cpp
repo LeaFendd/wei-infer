@@ -15,7 +15,7 @@ void emb_kernel_normal(
     CHECK(weight.device_type() == output.device_type());
     CHECK(input.device_type() == base::DeviceType::kDeviceCPU);
 
-    const auto allocator = base::CPUDeviceAllocatorFactory::get_instance();
+    const auto allocator = base::CPUDeviceAllocatorFactory::getInstance();
     for (int32_t i = 0; i < input_num; ++i) {
         int32_t token = *input.ptr<int32_t>(i);
         if (token > vocab_size) {

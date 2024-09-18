@@ -18,7 +18,7 @@ void mha_kernel(
     const tensor::Tensor &key_cache_tensor,
     const tensor::Tensor &value_cache_tensor,
     base::DeviceType device_type,
-    CudaConfig *config
+    const CudaConfig *config
 );
 } // namespace kernel
 #endif // LLAMA_INFER_MHA_KERNEL_H
