@@ -198,9 +198,9 @@ void fmha_kernel_cu(
     dim3 grid(head_num);
     int32_t layer_offset = layer_index * seq_len * dim;
 
-    // Q: (1, D) S: (1, tile_size) V: (tile_size, D)
+    // Q K V S O
     const int32_t smem_size =
-        ((1 + 2 * tile_size) * dim + tile_size) * sizeof(float);
+        ((2 + 2 * tile_size) * dim + tile_size) * sizeof(float);
 
     // l, m
     auto dtype = base::DataType::kDataTypeFp32;
